@@ -1,5 +1,3 @@
-import "./CourseList.css";
-
 const Course = ({ course }) => (
   <div className="card m-1 p-2">
     <div className="card-body">
