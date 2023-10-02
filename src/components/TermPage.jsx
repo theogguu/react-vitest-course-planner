@@ -7,48 +7,63 @@ const terms = {
   Spring: "Spring",
 };
 
-const TermButton = ({ term, selection, setSelection }) => (
+const TermButton = ({ term, termSelection, setTermSelection }) => (
   <div>
     <input
       type="radio"
       id={term}
       className="btn-check"
-      checked={term === selection}
+      checked={term === termSelection}
       autoComplete="off"
-      onChange={() => setSelection(term)}
+      onChange={() => setTermSelection(term)}
     />
-    <label 
-      className="btn btn-outline-dark btn-lg m-1 p-2" 
+    <label
+      className="btn btn-outline-dark btn-lg m-1 p-2"
       htmlFor={term}
-      style={{width: "150px", textAlign: "center"}}
-      >
+      style={{ width: "150px", textAlign: "center" }}
+    >
       {term}
     </label>
   </div>
 );
 
-const TermSelector = ({ selection, setSelection }) => (
+const TermSelector = ({ termSelection, setTermSelection }) => (
   <div className="d-flex btn-group justify-content-center align-items-center m-2">
     {Object.keys(terms).map((term) => (
       <TermButton
         key={term}
         term={term}
-        selection={selection}
-        setSelection={setSelection}
+        termSelection={termSelection}
+        setTermSelection={setTermSelection}
       />
     ))}
   </div>
 );
 
-const Term = ({ selection }) => <div className="card">{terms[selection]}</div>;
+const Term = ({ termSelection }) => (
+  <div className="card">{terms[termSelection]}</div>
+);
 
 const TermPage = (courses) => {
-  const [selection, setSelection] = useState(() => Object.keys(terms)[0]);
+  const [term, setTerm] = useState(() => Object.keys(terms)[0]);
+  const [courseSelection, setCourseSelection] = useState([]);
+
+  const toggleCourseSelected = (course) =>
+    setCourseSelection(
+      courseSelection.includes(course)
+        ? courseSelection.filter((x) => x !== course)
+        : [...courseSelection, course]
+    );
 
   return (
     <div>
-      <TermSelector selection={selection} setSelection={setSelection} />
-      <CourseList courses={courses} term={selection} />
+      <TermSelector termSelection={term} setTermSelection={setTerm} />
+      <CourseList
+        courses={courses}
+        term={term}
+        selected={courseSelection}
+        toggleSelected={toggleCourseSelected}
+      />
     </div>
   );
 };
