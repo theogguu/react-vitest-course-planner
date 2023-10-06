@@ -51,7 +51,7 @@ const TermPage = (courses) => {
   const toggleCourseSelected = (course) =>
     setCourseSelection(
       courseSelection.includes(course)
-        ? courseSelection.filter((x) => x !== course)
+        ? courseSelection.filter(x => x !== course)
         : [...courseSelection, course]
     );
 

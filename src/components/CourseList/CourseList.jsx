@@ -8,8 +8,12 @@ const CourseList = ({ courses, term, selected, toggleSelected }) => {
   return (
     <div className="course-list">
       {
-        filteredCourses.map((value, index) => 
-        <Course key={index} course={value} index={index} selected={selected} toggleSelected={toggleSelected}/>
+        filteredCourses.map((course, index) => 
+          
+        <Course course={course} id={`${term} ${index}`} selected={selected} toggleSelected={toggleSelected}>
+          {console.log(index)}
+          </Course>
+        
         )
       }
     </div>
