@@ -1,4 +1,4 @@
-.selected {
-    background-color: greenyellow;
-    color: green;
+.course .selected {
+    background-color: rgb(161, 251, 108);
+    color: rgb(101, 154, 70);
 }

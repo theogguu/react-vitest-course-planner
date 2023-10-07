@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Modal from './Modal/Modal';
+import Cart from "./Cart/Cart";
 import CourseList from "./CourseList/CourseList";
 
 const terms = {
@@ -46,6 +48,11 @@ const Term = ({ termSelection }) => (
 
 const TermPage = (courses) => {
   const [term, setTerm] = useState(() => Object.keys(terms)[0]);
+  const [open, setOpen] = useState(false);
+
+  const openModal = () => setOpen(true);
+  const closeModal = () => setOpen(false);
+
   const [courseSelection, setCourseSelection] = useState([]);
 
   const toggleCourseSelected = (course) =>
@@ -57,7 +64,13 @@ const TermPage = (courses) => {
 
   return (
     <div>
-      <TermSelector termSelection={term} setTermSelection={setTerm} />
+      <button className="btn btn-outline-dark" onClick={openModal}><i className="bi bi-cart4">📚View Selected Courses</i></button>
+      <Modal open={open} close={closeModal}>
+        <Cart selected={courseSelection} />
+      </Modal>
+
+      <TermSelector termSelection={term} setTermSelection={setTerm} />      
+
       <CourseList
         courses={courses}
         term={term}
