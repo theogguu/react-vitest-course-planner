@@ -7,9 +7,9 @@ const Cart = ({selected}) => (
       ? <h3>The selection is empty</h3>
       : <div>
         <ul>
-        {selected.map(courseTermAndNumber => (
-          <div key={courseTermAndNumber}>
-            <li>{courseTermAndNumber}</li>
+        {selected.map(course => (
+          <div key={course}>
+            <li>{`${course.term} CS ${course.number}, ${course.title}`}</li>
           </div>
         ))
         }
