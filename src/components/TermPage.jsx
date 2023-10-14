@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from './Modal/Modal';
 import Cart from "./Cart/Cart";
 import CourseList from "./CourseList/CourseList";
+import { hasConflictWithMeetingList } from "../utilities/is-conflict";
 
 const terms = {
   Fall: "Fall",
@@ -56,11 +57,16 @@ const TermPage = (courses) => {
   const [courseSelection, setCourseSelection] = useState([]);
 
   const toggleCourseSelected = (course) =>
-    setCourseSelection(
-      courseSelection.includes(course)
-        ? courseSelection.filter(x => x !== course)
-        : [...courseSelection, course]
-    );
+  {
+    if (! hasConflictWithMeetingList(courseSelection.map((element) => element.meets), course.meets) || 
+    courseSelection.includes(course)) {
+      setCourseSelection(
+        courseSelection.includes(course) 
+          ? courseSelection.filter(x => x !== course)
+          : [...courseSelection, course]
+      );
+    }   
+  }
 
   return (
     <div>

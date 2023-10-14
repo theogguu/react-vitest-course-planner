@@ -5,7 +5,10 @@ const Course = ({ course, id, selected, toggleSelected }) => (
   <div
     className={`course card m-1 p-2 ${
       selected.includes(course) ? "text-white bg-primary" : ""
-    }`}
+    }
+      ${hasConflictWithMeetingList(selected.map((element) => element.meets), course.meets) ? 
+      "text-white bg-danger" : ""}`
+    }
     // onClick={() => toggleSelected(id)}
     onClick={() => toggleSelected(course)}
   >
@@ -19,7 +22,6 @@ const Course = ({ course, id, selected, toggleSelected }) => (
         <label class="form-check-label" for="flexCheckDefault">
           <h4 className="card-title">
             {course.term} CS {course.number}
-            {`${hasConflictWithMeetingList(selected.map((element) => element.meets), course.meets)}`}
 
           </h4>
         </label>

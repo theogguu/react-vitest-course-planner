@@ -8,7 +8,7 @@ const Cart = ({selected}) => (
       : <div>
         <ul>
         {selected.map(course => (
-          <div key={course}>
+          <div key={`${course.term} CS ${course.number}`}>
             <li>{`${course.term} CS ${course.number}, ${course.title}`}</li>
           </div>
         ))

@@ -12,7 +12,7 @@ export const hasConflictWithMeetingList = (meetingList, meeting2) =>
     
       const [days1, time1] = meeting1 ? meeting1.split(" "): [null, null]
       const [days2, time2] = meeting2.split(" ");
-      console.log("days1, days2:", days1, days2);
+      // console.log("days1, days2:", days1, days2);
       return dayConflict(days1, days2) && timeConflict(time1, time2);
     } 
   );
