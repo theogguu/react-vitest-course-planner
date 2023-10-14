@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Modal from './Modal/Modal';
+import Modal from "./Modal/Modal";
 import Cart from "./Cart/Cart";
 import CourseList from "./CourseList/CourseList";
-import { hasConflictWithMeetingList } from "../utilities/is-conflict";
+import { canToggleCourse } from "../utilities/is-conflict";
 
 const terms = {
   Fall: "Fall",
@@ -43,9 +43,9 @@ const TermSelector = ({ termSelection, setTermSelection }) => (
   </div>
 );
 
-const Term = ({ termSelection }) => (
-  <div className="card">{terms[termSelection]}</div>
-);
+// const Term = ({ termSelection }) => (
+//   <div className="card">{terms[termSelection]}</div>
+// );
 
 const TermPage = (courses) => {
   const [term, setTerm] = useState(() => Object.keys(terms)[0]);
@@ -56,26 +56,26 @@ const TermPage = (courses) => {
 
   const [courseSelection, setCourseSelection] = useState([]);
 
-  const toggleCourseSelected = (course) =>
-  {
-    if (! hasConflictWithMeetingList(courseSelection.map((element) => element.meets), course.meets) || 
-    courseSelection.includes(course)) {
+  const toggleCourseSelected = (course) => {
+    if (canToggleCourse(courseSelection, course)) {
       setCourseSelection(
-        courseSelection.includes(course) 
-          ? courseSelection.filter(x => x !== course)
+        courseSelection.includes(course)
+          ? courseSelection.filter((x) => x !== course)
           : [...courseSelection, course]
       );
-    }   
-  }
+    }
+  };
 
   return (
     <div>
-      <button className="btn btn-outline-dark" onClick={openModal}><i className="bi bi-cart4">📚View Selected Courses</i></button>
+      <button className="btn btn-outline-dark" onClick={openModal}>
+        <i className="bi bi-cart4">📚View Selected Courses</i>
+      </button>
       <Modal open={open} close={closeModal}>
         <Cart selected={courseSelection} />
       </Modal>
 
-      <TermSelector termSelection={term} setTermSelection={setTerm} />      
+      <TermSelector termSelection={term} setTermSelection={setTerm} />
 
       <CourseList
         courses={courses}
