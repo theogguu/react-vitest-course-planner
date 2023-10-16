@@ -1,0 +1,6 @@
+.TermButton {
+    transition: all 0.3s;
+}
+.TermButton:hover {
+    transform: scale(1.05);
+}

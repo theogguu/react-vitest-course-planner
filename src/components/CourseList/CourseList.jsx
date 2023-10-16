@@ -3,14 +3,21 @@ import "./CourseList.css";
 
 const CourseList = ({ courses, term, selected, toggleSelected }) => {
   // due to how the .json is structured, we need to access courses.courses
-  const filteredCourses = Object.values(courses.courses).filter(
-    (course) => course.term === term
+  const filteredCourseEntries = Object.entries(courses.courses).filter(
+    ([id, course]) => {
+      // a courseEntry is...
+      // key: str ("F211")
+      // val: Obj {term:, number:, ...}
+      return course.term === term;
+    }
   );
+
   return (
     <div className="course-list justify-content-center">
-      {filteredCourses.map((course) => (
+      {filteredCourseEntries.map(([id, course]) => (
         <Course
-          key={`${course.term} CS ${course.number} ${course.title}`}
+          key={id}
+          id={id}
           course={course}
           selected={selected}
           toggleSelected={toggleSelected}

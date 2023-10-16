@@ -1,8 +1,9 @@
+import './TermPage.css'
 import { useState } from "react";
-import Modal from "./Modal/Modal";
-import Cart from "./Cart/Cart";
-import CourseList from "./CourseList/CourseList";
-import { canToggleCourse } from "../utilities/is-conflict";
+import Modal from "../Modal/Modal";
+import Cart from "../Cart/Cart";
+import CourseList from "../CourseList/CourseList";
+import { canToggleCourse } from "../../utilities/isConflict";
 
 const terms = {
   Fall: "Fall",
@@ -11,7 +12,7 @@ const terms = {
 };
 
 const TermButton = ({ term, termSelection, setTermSelection }) => (
-  <div>
+  <div className="TermButton">
     <input
       type="radio"
       id={term}
