@@ -26,8 +26,8 @@ const Course = ({ id, course, selected, toggleSelected }) => (
             </div>
             <div className="col m-0 p-0 edit-button">
               <Link to={`/edit/${id}`}>
-                <button class="btn">
-                  <i class="bi bi-pencil-square" />
+                <button className="btn">
+                  <i className="bi bi-pencil-square" />
                 </button>
               </Link>
             </div>

@@ -3,10 +3,11 @@ import { useNavigate, NavLink } from "react-router-dom";
 
 const validateUserData = (key, val) => {
     switch (key) {
-      case 'firstName': case 'lastName':
+      case 'courseName':
         return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
-      case 'email':
-        return /^\w+@\w+[.]\w+/.test(val) ? '' : 'must contain name@domain.top-level-domain';
+      case 'meetingTimes':
+        return /^((M|T|W|Th|F)(|$))+ (\d{1,2}:\d{2})-(\d{1,2}:\d{2})$/.test(val) ? 
+        '' : 'must contain valid days and starting time';
       default: return '';
     }
   };
@@ -22,7 +23,7 @@ const ButtonBar = ({disabled}) => {
     );
 };
 
-const InputField = ({ name, text, change}) => (
+const InputField = ({ name, text, state, change}) => (
   <div className="mb-3">
     <label htmlFor={name} className="form-label">
       {text}
@@ -31,10 +32,10 @@ const InputField = ({ name, text, change}) => (
       className="form-control"
       id={name}
       name={name}
-    //   defaultValue={state.values?.[name]}
+      defaultValue={state.values?.[name]}
       onChange={change}
     />
-    {/* <div className="invalid-feedback">{state.errors?.[name]}</div> */}
+    <div className="invalid-feedback">{state.errors?.[name]}</div>
   </div>
 );
 
@@ -49,23 +50,20 @@ const activation = ({isActive}) => isActive ? 'active' : 'inactive';
 
 const EditForm = (course) => {
 //   const [update, result] = useDbUpdate(`/users/${user.id}`);
-//   const [state, change] = useFormData(validateUserData, user);
+  const [state, change] = useFormData(validateUserData, course);
   const submit = (evt) => {
     evt.preventDefault();
-    // if (!state.errors) {
-    //   update(state.values);
-    // }
+    if (!state.errors) {
+      update(state.values);
+    }
   };
 
   return (
-    <div className="pr-5">
-        <h2>{course.id.toUpperCase()}</h2>
-        <form onSubmit={submit}>
-            <InputField name="courseName" text="Course Name" />
-            <InputField name="meetingTimes" text="Meeting Times" />
-        </form>
-        <ButtonBar />
-    </div>
+    <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
+      <InputField name="courseName" text="Course Name" state={state} change={change}/>
+      <InputField name="meetingTimes" text="Meeting Times" state={state} change={change}/>
+      <ButtonBar />
+    </form>
   )
 };
 
