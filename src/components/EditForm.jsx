@@ -4,9 +4,9 @@ import { useDbUpdate } from "../utilities/firebase";
 
 const validateUserData = (key, val) => {
     switch (key) {
-      case 'courseName':
+      case 'title':
         return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
-      case 'meetingTimes':
+      case 'meets':
         return /^((M|T|W|Th|F)(|$))+ (\d{1,2}:\d{2})-(\d{1,2}:\d{2})$/.test(val) ? 
         '' : 'must contain valid days and starting time';
       default: return '';
