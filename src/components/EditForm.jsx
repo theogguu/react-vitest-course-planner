@@ -1,5 +1,6 @@
 import { useFormData } from "../utilities/useFormData";
 import { useNavigate, NavLink } from "react-router-dom";
+import { useDbUpdate } from "../utilities/firebase";
 
 const validateUserData = (key, val) => {
     switch (key) {
@@ -12,13 +13,13 @@ const validateUserData = (key, val) => {
     }
   };
 
-const ButtonBar = ({disabled}) => {
+const ButtonBar = ({message, disabled}) => {
     const navigate = useNavigate();
     return (
         <div className="d-flex">
         <button type="button" className="btn btn-outline-dark me-2" onClick={() => navigate(-1)}>Cancel</button>
         <button type="submit" className="btn btn-primary me-auto" disabled={disabled}>Submit</button>
-        {/* <span className="p-2">{message}</span> */}
+        <span className="p-2">{message}</span>
         </div>
     );
 };
@@ -39,7 +40,7 @@ const InputField = ({ name, text, state, change}) => (
   </div>
 );
 
-const activation = ({isActive}) => isActive ? 'active' : 'inactive';
+// const activation = ({isActive}) => isActive ? 'active' : 'inactive';
 
 // const Navigation = () => (
 //   <nav>
@@ -49,7 +50,7 @@ const activation = ({isActive}) => isActive ? 'active' : 'inactive';
 // );
 
 const EditForm = (course) => {
-//   const [update, result] = useDbUpdate(`/users/${user.id}`);
+  const [update, result] = useDbUpdate(`/courses/${course.id}`);
   const [state, change] = useFormData(validateUserData, course);
   const submit = (evt) => {
     evt.preventDefault();
@@ -60,9 +61,9 @@ const EditForm = (course) => {
 
   return (
     <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
-      <InputField name="courseName" text="Course Name" state={state} change={change}/>
-      <InputField name="meetingTimes" text="Meeting Times" state={state} change={change}/>
-      <ButtonBar />
+      <InputField name="title" text="Course Name" state={state} change={change}/>
+      <InputField name="meets" text="Meeting Times" state={state} change={change}/>
+      <ButtonBar message={result?.message} />
     </form>
   )
 };

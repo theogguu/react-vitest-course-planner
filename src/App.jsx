@@ -13,8 +13,6 @@ import TermPage from './components/TermPage/TermPage';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import EditForm from './components/EditForm';
 
-
-
 const Main = () => {
 
   const [data, error] = useDbData('/');

@@ -50,5 +50,3 @@ export const useDbUpdate = (path) => {
 
   return [updateData, result];
 };
-// const analytics = getAnalytics(app);
-// export default app;
