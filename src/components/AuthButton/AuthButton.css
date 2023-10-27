@@ -1,0 +1,11 @@
+/* AuthButton.css */
+#auth-button {
+    transition: all 0.3s;
+}
+
+#auth-button:hover {
+    transform: scale(1.05);
+    background-color: white;
+    color: black;
+    outline: 2px solid black;
+}
