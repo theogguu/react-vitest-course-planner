@@ -1,6 +1,14 @@
 {
   "rules": {
-    ".read": "now < 1700805600000",  // 2023-11-24
-    ".write": "now < 1700805600000",  // 2023-11-24
+    ".read": "true",
+    ".write": "auth !== null && root.child('admins').child(auth.uid).exists()",
+    "admins": {
+      ".read": "true",
+      ".write": "auth !== null && root.child('admins').child(auth.uid).exists()"
+    },
+    "courses": {
+      ".read": "true",
+      ".write": "auth !== null && root.child('admins').child(auth.uid).exists()"
+    }
   }
 }

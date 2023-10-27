@@ -40,16 +40,8 @@ const InputField = ({ name, text, state, change }) => (
   </div>
 );
 
-// const activation = ({isActive}) => isActive ? 'active' : 'inactive';
 
-// const Navigation = () => (
-//   <nav>
-//     <NavLink to="/" className={activation}>Posts</NavLink>
-//     <NavLink to="/users" className={activation}>Users</NavLink>
-//   </nav>
-// );
-
-const EditForm = (profile, course) => {
+const EditForm = ({profile, course}) => {
   const [update, result] = useDbUpdate(`/courses/${course.id}`);
   const [state, change] = useFormData(validateUserData, course);
   const submit = (evt) => {
@@ -67,7 +59,7 @@ const EditForm = (profile, course) => {
           <InputField name="meets" text="Meeting Times" state={state} change={change} />
           <ButtonBar message={result?.message} />
         </form>
-      ) : (<h3>You do not have access to edit this course.</h3>)}
+      ) : (<h3>You do not have access to this edit form.</h3>)}
     </div>)
 };
 
