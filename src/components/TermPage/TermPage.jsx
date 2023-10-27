@@ -48,7 +48,7 @@ const TermSelector = ({ termSelection, setTermSelection }) => (
 //   <div className="card">{terms[termSelection]}</div>
 // );
 
-const TermPage = (courses) => {
+const TermPage = ({profile, courses}) => {
   const [term, setTerm] = useState(() => Object.keys(terms)[0]);
   const [open, setOpen] = useState(false);
 
@@ -66,6 +66,10 @@ const TermPage = (courses) => {
       );
     }
   };
+  {console.log(profile)}
+  if (!profile) {
+    return <div>Loading...</div>; // or handle the absence of profile in an appropriate way
+  }
 
   return (
     <div>
@@ -79,6 +83,7 @@ const TermPage = (courses) => {
       <TermSelector termSelection={term} setTermSelection={setTerm} />
 
       <CourseList
+        profile={profile}
         courses={courses}
         term={term}
         selected={courseSelection}

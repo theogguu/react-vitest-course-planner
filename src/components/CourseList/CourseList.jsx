@@ -1,9 +1,9 @@
 import Course from "../Course/Course";
 import "./CourseList.css";
 
-const CourseList = ({ courses, term, selected, toggleSelected }) => {
+const CourseList = ({profile, courses, term, selected, toggleSelected }) => {
   // due to how the .json is structured, we need to access courses.courses
-  const filteredCourseEntries = Object.entries(courses.courses).filter(
+  const filteredCourseEntries = Object.entries(courses).filter(
     ([id, course]) => {
       // a courseEntry is...
       // key: str ("F211")
@@ -16,6 +16,7 @@ const CourseList = ({ courses, term, selected, toggleSelected }) => {
     <div className="course-list justify-content-center">
       {filteredCourseEntries.map(([id, course]) => (
         <Course
+          profile={profile}
           key={id}
           id={id}
           course={course}

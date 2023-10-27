@@ -3,28 +3,28 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { useDbUpdate } from "../utilities/firebase";
 
 const validateUserData = (key, val) => {
-    switch (key) {
-      case 'title':
-        return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
-      case 'meets':
-        return /^((M|T|W|Th|F)(|$))+ (\d{1,2}:\d{2})-(\d{1,2}:\d{2})$/.test(val) ? 
+  switch (key) {
+    case 'title':
+      return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
+    case 'meets':
+      return /^((M|T|W|Th|F)(|$))+ (\d{1,2}:\d{2})-(\d{1,2}:\d{2})$/.test(val) ?
         '' : 'must contain valid days and starting time';
-      default: return '';
-    }
-  };
-
-const ButtonBar = ({message, disabled}) => {
-    const navigate = useNavigate();
-    return (
-        <div className="d-flex">
-        <button type="button" className="btn btn-outline-dark me-2" onClick={() => navigate(-1)}>Cancel</button>
-        <button type="submit" className="btn btn-primary me-auto" disabled={disabled}>Submit</button>
-        <span className="p-2">{message}</span>
-        </div>
-    );
+    default: return '';
+  }
 };
 
-const InputField = ({ name, text, state, change}) => (
+const ButtonBar = ({ message, disabled }) => {
+  const navigate = useNavigate();
+  return (
+    <div className="d-flex">
+      <button type="button" className="btn btn-outline-dark me-2" onClick={() => navigate(-1)}>Cancel</button>
+      <button type="submit" className="btn btn-primary me-auto" disabled={disabled}>Submit</button>
+      <span className="p-2">{message}</span>
+    </div>
+  );
+};
+
+const InputField = ({ name, text, state, change }) => (
   <div className="mb-3">
     <label htmlFor={name} className="form-label">
       {text}
@@ -49,7 +49,7 @@ const InputField = ({ name, text, state, change}) => (
 //   </nav>
 // );
 
-const EditForm = (course) => {
+const EditForm = (profile, course) => {
   const [update, result] = useDbUpdate(`/courses/${course.id}`);
   const [state, change] = useFormData(validateUserData, course);
   const submit = (evt) => {
@@ -60,12 +60,15 @@ const EditForm = (course) => {
   };
 
   return (
-    <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
-      <InputField name="title" text="Course Name" state={state} change={change}/>
-      <InputField name="meets" text="Meeting Times" state={state} change={change}/>
-      <ButtonBar message={result?.message} />
-    </form>
-  )
+    <div>
+      {profile.isAdmin ? (
+        <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
+          <InputField name="title" text="Course Name" state={state} change={change} />
+          <InputField name="meets" text="Meeting Times" state={state} change={change} />
+          <ButtonBar message={result?.message} />
+        </form>
+      ) : (<h3>You do not have access to edit this course.</h3>)}
+    </div>)
 };
 
 export default EditForm;

@@ -3,7 +3,7 @@ import { canToggleCourse } from "../../utilities/isConflict";
 import { Link } from "react-router-dom";
 import { Button } from "bootstrap";
 
-const Course = ({ id, course, selected, toggleSelected }) => (
+const Course = ({ profile, id, course, selected, toggleSelected }) => (
   <div
     className={
       `card m-1 p-2
@@ -25,11 +25,14 @@ const Course = ({ id, course, selected, toggleSelected }) => (
               {course.term} CS {course.number}
             </div>
             <div className="col m-0 p-0 edit-button">
-              <Link to={`/edit/${id}`}>
-                <button className="btn">
-                  <i className="bi bi-pencil-square" />
-                </button>
-              </Link>
+              {/* only link to edit if profile is admin */}
+              {profile?.isAdmin && 
+                <Link to={`/edit/${id}`}>
+                  <button className="btn">
+                    <i className="bi bi-pencil-square" />
+                  </button>
+                </Link>
+              }
             </div>
         </div>
       </h4>
