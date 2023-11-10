@@ -25,6 +25,7 @@ const TermButton = ({ term, termSelection, setTermSelection }) => (
       className="btn btn-outline-dark btn-lg m-1 p-2"
       htmlFor={term}
       style={{ width: "150px", textAlign: "center" }}
+      data-cy={term}
     >
       {term}
     </label>

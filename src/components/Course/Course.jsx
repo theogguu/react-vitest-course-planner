@@ -17,6 +17,7 @@ const Course = ({ profile, id, course, selected, toggleSelected }) => (
       // bg-primary if course is selected
     }
     onClick={() => toggleSelected(course)}
+    data-cy="course"
   >
     <div className="card-body">
       <h4 className="card-title">
