@@ -2,9 +2,8 @@
 import { initializeApp } from "firebase/app";
 
 import { useCallback, useEffect, useState } from 'react';
-import { getDatabase, onValue, ref, update } from 'firebase/database';
-
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { getDatabase, connectDatabaseEmulator, onValue, ref, update } from 'firebase/database';
+import { getAuth, connectAuthEmulator, signInWithCredential, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJnmmhZyzAkeVvt2_0_1C_iaLp_QV5opU",
@@ -19,6 +18,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const database = getDatabase(app);
 
 export const useDbData = (path) => {
@@ -77,7 +77,7 @@ if (!globalThis.EMULATION && import.meta.env.MODE === 'development') {
   connectDatabaseEmulator(database, "127.0.0.1", 9000);
 
 signInWithCredential(auth, GoogleAuthProvider.credential(
-  '{"sub": "qEvli4msW0eDz5mSVO6j3W7i8w1k", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+  '{"sub": "qEvli4msW0eDz5mSVO6j3W7i8w1k", "email": "test1@gmail.com", "displayName":"test1", "email_verified": true}'
 ));
 
 // set flag to avoid connecting twice, e.g., because of an editor hot-reload
