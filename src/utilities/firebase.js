@@ -72,7 +72,9 @@ export const useAuthState = () => {
   return [user];
 };
 
-if (!globalThis.EMULATION && import.meta.env.MODE === 'development') {
+// EMULATION: commented out for deployment
+const REACT_APP_EMULATE = false;
+if (!globalThis.EMULATION && import.meta.env.MODE === 'development' && REACT_APP_EMULATE) {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
   connectDatabaseEmulator(database, "127.0.0.1", 9000);
 
